@@ -1,0 +1,91 @@
+.Button {
+  border: none;
+  border: 1px solid #ffa720;
+  border-radius: 5px;
+  box-sizing: border-box;
+  color: #fff;
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 14px 32px;
+  text-align: center;
+  outline: none;
+
+  &--primary {
+    background-color: #ffa720;
+    padding: 12px 50px;
+  }
+
+  &--select {
+    padding-bottom: 13px;
+    padding-top: 13px;
+    margin-left: 8px;
+  }
+
+  &--transparent {
+    background: transparent;
+    border: 1px solid transparent;
+    color: #74a1c8;
+  }
+
+  &--secondary {
+    border: 1px solid #ffa720;
+    color: #ffa720;
+  }
+
+  &--orange {
+    color: #ffa720;
+  }
+
+  &--long {
+    width: 225px;
+  }
+
+  &--space {
+    margin-left: 16px;
+  }
+
+  &--bottom {
+    align-self: flex-end;
+    margin-bottom: 5px;
+  }
+
+  &:hover {
+    opacity: 0.8;
+  }
+
+  &.is-disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+
+  &--transparent {
+    background: transparent;
+    cursor: pointer;
+  }
+
+  &-flex {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    color: inherit;
+  }
+
+  &-flex--center {
+    justify-content: center;
+  }
+
+  &-flex--left {
+    justify-content: flex-start;
+  }
+
+  &-flex--right {
+    justify-content: flex-end;
+  }
+
+  &-text {
+    color: inherit;
+    outline: none;
+  }
+}

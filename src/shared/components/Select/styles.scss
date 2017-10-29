@@ -1,0 +1,120 @@
+.MySelect {
+  width: 300px;
+
+  &--stretch {
+    width: 100%;
+  }
+
+  &--small {
+    width: 250px;
+  }
+
+  &--marginLeft {
+    margin-left: 20px;
+  }
+
+  &.is-invalid {
+    .Select-control {
+      border: 1px solid #ff8671;
+    }
+  }
+
+  .Select-placeholder {
+    color: #74a1c8;
+    font: normal 400 14px 'Montserrat', sans-serif;
+    height: 18px;
+    line-height: 18px;
+    left: 10px;
+    padding-left: 3px;
+    top: 50%;
+    transform: translateY(-50%);
+    vertical-align: middle;
+  }
+
+  .Select-control {
+    border: 1px solid #cce5f4;
+    display: block;
+    padding: 13px 40px 13px 10px;
+    height: 44px;
+  }
+
+  &.Select--single > .Select-control .Select-value {
+    color: #3c5360;
+    font: normal 500 14px 'Montserrat', sans-serif;
+    height: 44px;
+    max-width: calc(100% - 24px);
+  }
+
+  &.Select--single > .Select-control .Select-value .Select-value-label {
+    line-height: 44px;
+  }
+
+  .Select-input {
+    line-height: 18px;
+    height: initial; // remove default
+    padding-left: 0; // remove default
+    padding-right: 0; // remove default
+    vertical-align: initial; // remove default
+  }
+
+  .Select-arrow-zone {
+    display: initial; // remove default
+    position: initial; // remove default
+    text-align: initial; // remove default
+    vertical-align: initial; // remove default
+    width: initial; // remove default
+    padding-right: 0; // remove default
+  }
+
+  .Select-input > input {
+    padding: 0;
+  }
+
+  .Select-menu-outer {
+    border: 1px solid #cce5f4;
+  }
+
+  .Select-option {
+    color: #3c5360;
+    font: normal 500 14px 'Montserrat', sans-serif;
+  }
+
+  .Select-option:hover {
+    background: transparent;
+    color: #74a1c8;
+  }
+
+  .Select-option.is-selected {
+    background: transparent;
+    color: #74a1c8;
+  }
+
+  &--icon {
+    .Select-control {
+      padding-left: 32px;
+    }
+
+    .Select-placeholder {
+      left: 32px;
+    }
+
+    .Select-value-label {
+      margin-left: 24px;
+    }
+  }
+
+  &-arrow {
+    fill: #415865;
+    right: 14px;
+    height: 13px;
+    top: 50%;
+    position: absolute;
+    transform: translateY(-50%);
+    transition: all 0.3s;
+  }
+
+  &-arrow.is-open {
+    transform: rotate(-90deg);
+    top: calc(50% - 5px);
+  }
+}

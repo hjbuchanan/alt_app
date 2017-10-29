@@ -6,11 +6,9 @@ class PrimaryLayout extends Component {
     return (
       <div className="App">
         <Header />
-        <div className="App-content">
-          {this.props.children}
-        </div>
+        {this.props.children}
       </div>
-    )
+    );
   }
 }
 

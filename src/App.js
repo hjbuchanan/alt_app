@@ -1,25 +1,27 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router';
-import axios from 'axios'
+import axios from 'axios';
+import { Provider } from 'react-redux';
+import { BrowserRouter } from 'react-router-dom';
+import { Route, Switch } from 'react-router';
 
+import store from 'store';
+import { Home } from 'views';
 import { PrimaryLayout } from 'shared/layouts';
 
 import './App.css';
 
 class App extends Component {
-  async componentWillMount() {
-    const { data } = await axios.get('/data/all/coinlist');
-    const { data: prices } = await axios.get('/data/pricemulti', {
-      params: { fsyms: Object.keys(data.Data).slice(0, 20).join(','), tsyms: 'BTC,USD' }
-    });
-
-  }
-
   render() {
     return (
-      <PrimaryLayout>
-
-      </PrimaryLayout>
+      <Provider store={store}>
+        <BrowserRouter>
+          <PrimaryLayout>
+            <Switch>
+              <Route exact={true} component={Home} />
+            </Switch>
+          </PrimaryLayout>
+        </BrowserRouter>
+      </Provider>
     );
   }
 }

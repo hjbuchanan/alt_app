@@ -1,0 +1,49 @@
+.CoinBlock {
+  padding: 0.5rem;
+  width: 33.333333%;
+
+  &-title {
+    color: #3c5360;
+    font: normal bold 20px 'Montserrat', sans-serif;
+    text-transform: uppercase;
+    text-align: center;
+  }
+
+  &-inner {
+    border: 1px solid #ecf0f8;
+    box-shadow: 0 4px 20px 0 rgba(71, 90, 118, 0.1);
+    padding: 2rem;
+  }
+
+  &-logo {
+    display: block;
+    height: 150px;
+    object-fit: cover;
+    margin: 1rem auto 2rem auto;
+    width: 150px;
+  }
+
+  &-meta {
+    border-bottom: 1px solid #cce5f4;
+    margin-bottom: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
+
+  &-row {
+    align-item: center;
+    display: flex;
+    margin: 0.25rem 0;
+    justify-content: space-between;
+  }
+
+  &-metaLabel {
+    color: #3c5360;
+    font: normal normal 14px 'Open Sans', sans-serif;
+    text-transform: uppercase;
+  }
+
+  &-metaValue {
+    color: #3c5360;
+    font: normal normal 14px 'Open', sans-serif;
+  }
+}
