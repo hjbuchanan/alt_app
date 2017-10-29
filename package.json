@@ -1,0 +1,41 @@
+{
+  "name": "alt-coin",
+  "version": "0.1.0",
+  "private": true,
+  "devDependencies": {
+    "react-scripts": "1.0.14"
+  },
+  "dependencies": {
+    "axios": "^0.17.0",
+    "classnames": "^2.2.5",
+    "husky": "^0.14.3",
+    "lint-staged": "^4.3.0",
+    "node-sass-chokidar": "^0.0.3",
+    "npm-run-all": "^4.1.1",
+    "prettier": "^1.7.4",
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0",
+    "react-redux": "^5.0.6",
+    "react-router": "^4.2.0",
+    "redux": "^3.7.2",
+    "redux-actions": "^2.2.1"
+  },
+  "scripts": {
+    "start-js": "react-scripts start",
+    "start": "npm-run-all -p watch-css start-js",
+    "precommit": "lint-staged",
+    "build-js": "react-scripts build",
+    "build": "npm-run-all build-css build-js",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject",
+    "build-css": "node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/",
+    "watch-css": "npm run build-css && node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/ --watch --recursive"
+  },
+  "proxy": "https://min-api.cryptocompare.com",
+  "lint-staged": {
+    "src/**/*.{js,jsx,json,css}": [
+      "prettier --single-quote --write",
+      "git add"
+    ]
+  }
+}
