@@ -1,0 +1,74 @@
+.Pagination {
+  display: flex;
+  max-width: 600px;
+  margin: 50px auto 50px auto;
+  visibility: hidden;
+  font: normal normal 12px 'Montserrat', sans-serif;
+
+  &.is-active {
+    visibility: visible;
+  }
+
+  &-paging,
+  &-navigation,
+  &-summary {
+    align-items: center;
+    flex: auto;
+    display: flex;
+    flex-direction: row;
+  }
+
+  &-paging {
+    justify-content: flex-end;
+  }
+
+  &-navigation {
+    flex: 0 1 39%;
+    justify-content: center;
+  }
+
+  &-summary {
+    justify-content: flex-start;
+  }
+
+  &-arrow {
+    cursor: pointer;
+    fill: #1c91ce;
+    height: 9px;
+    width: 9px;
+  }
+
+  &-navText {
+    margin: 0 8px;
+  }
+
+  &-currentPage {
+    border: 1px solid #1c91ce;
+    padding: 8px 10px;
+  }
+
+  &-select {
+    color: #1c91ce !important;
+    font-size: 12px !important;
+    font-weight: normal !important;
+    margin-left: 8px;
+    flex: 1;
+
+    .Select-control {
+      border: 1px solid #1c91ce;
+      border-radius: 5px;
+    }
+
+    .Select-value-label {
+      color: #1c91ce !important;
+    }
+
+    .Select-menu-outer {
+      border: solid 1px #1c91ce !important;
+    }
+
+    .Select-arrow {
+      border-color: #1c91ce transparent transparent;
+    }
+  }
+}

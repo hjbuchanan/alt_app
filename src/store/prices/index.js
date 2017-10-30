@@ -7,42 +7,22 @@ const initialState = {
 
 export default (state = initialState, { type, payload, error, meta }) => {
   switch (type) {
-    case CONST.GET_LOCATIONS_SUCCESS:
+    case CONST.FETCH_PRICES_SUCCESS:
       return {
         ...state,
         data: {
           ...state.data,
-          ...payload.reduce((locations, location) => {
-            locations[location.id] = { ...location, count: 0 };
-            return locations;
-          }, {}),
-        },
-        result: [
-          ...new Set([
-            payload.find(location => location.name === 'Pear').id,
-            ...payload.map(l => l.id),
-          ]),
-        ],
-      };
-    case 'UPDATE_POSITION':
-      return {
-        ...state,
-        data: {
-          ...state.data,
-          ...payload.locations.reduce((locations, id) => {
-            locations[id] = { ...state.data[id], count: state.data[id].count + 1 };
-            return locations;
+          ...Object.keys(payload.prices).reduce((prices, symbol) => {
+            prices[symbol] = {
+              [payload.exchange]: payload.prices[symbol],
+              ...(state.data[symbol] || {}),
+            };
+            return prices;
           }, {}),
         },
       };
-    case CONST.UPDATE_LOCATION_SUCCESS:
-      return {
-        ...state,
-        data: {
-          ...state.data,
-          [payload.id]: payload,
-        },
-      };
+    case CONST.CLEAR_PRICES:
+      return { ...initialState };
     default:
       return state;
   }

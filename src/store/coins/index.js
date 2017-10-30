@@ -3,6 +3,7 @@ import CONST from './constants';
 const initialState = {
   data: {},
   result: [],
+  page: 1,
 };
 
 export default (state = initialState, { type, payload, error, meta }) => {

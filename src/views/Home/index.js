@@ -3,17 +3,23 @@ import cx from 'classnames';
 import { connect } from 'react-redux';
 
 import { fetchCoins } from 'store/coins/actions';
-import { SearchIcon, FilterIcon, SortIcon } from 'shared/icons';
-import { Select, Button, CoinBlock } from 'shared/components';
+import { fetchPrices } from 'store/prices/actions';
+import { FilterIcon, SortIcon } from 'shared/icons';
+import { Select, Button, CoinBlock, CoinSearch, Pagination } from 'shared/components';
 
 class Home extends Component {
   state = {
-    filter: '',
-    sort: '',
+    coin: null,
+    filter: 'all',
+    sort: 'alphabetical',
+    isDescending: true,
+    page: 1,
+    pageSize: 100,
   };
 
   async componentWillMount() {
     await this.props.fetchCoins();
+    await this.props.fetchPrices();
   }
 
   onSelectChange(key) {
@@ -22,10 +28,26 @@ class Home extends Component {
     };
   }
 
-  filter(coin) {
+  componentWillReceiveProps(nextProps) {
+    if (this.props.coins.length !== nextProps.coins.length) {
+      this.setState({
+        options: [...nextProps.coins.map(coin => ({ label: coin.Symbol, value: coin.Symbol }))],
+      });
+    }
+  }
+
+  filterByCoin(coin) {
+    if (this.state.coin) {
+      return this.state.coin === coin.Symbol;
+    } else {
+      return true;
+    }
+  }
+
+  filterByMain(coin) {
     const { filter } = this.state;
-    if (filter === 'sponsored') {
-      return coin.Sponsored;
+    if (filter === 'main') {
+      return ['LTC', 'DASH', 'ETH'].includes(coin.Symbol);
     } else {
       return true;
     }
@@ -34,41 +56,42 @@ class Home extends Component {
   sort(coinA, coinB) {
     const { sort } = this.state;
     if (sort === 'alphabetical') {
-      return coinA.CoinName < coinB.CoinName ? 1 : -1;
+      return (coinA.CoinName < coinB.CoinName ? -1 : 1) * this.isDescending;
     } else if (sort === 'supply') {
-      return coinA.TotalCoinSupply < coinB.TotalCoinSupply ? 1 : -1;
+      return (coinA.TotalCoinSupply < coinB.TotalCoinSupply ? -1 : 1) * this.isDescending;
     }
   }
 
   get coins() {
-    return this.props.coin.filter(this.filter.bind(this)).sort(this.sort.bind(this));
+    const { page, pageSize } = this.state;
+    return this.props.coins
+      .filter(this.filterByCoin.bind(this))
+      .filter(this.filterByMain.bind(this))
+      .slice((page - 1) * pageSize, page * pageSize)
+      .sort(this.sort.bind(this));
+  }
+
+  get isDescending() {
+    return this.state.isDescending ? -1 : 1;
   }
 
   render() {
     const { sort, filter } = this.state;
-    const { coins } = this.props;
+    const { coins, prices } = this.props;
 
     return (
       <div className="View">
         <section className="View-heading">
           <h1 className="View-title">Coins</h1>
-          <div className="View-select-search-wrapper">
-            <SearchIcon className="View-select-search" />
-            <Select
-              isIcon
-              autosize={false}
-              clearable={false}
-              searchable={true}
-              options={[{ label: 'Show All', value: 'all' }, { label: 'Name', value: 'name' }]}
-              onChange={change => this.onSelectChange('customer')(change)}
-              placeholder="Search by Customer or User"
-              value={this.state.customer || ''}
-            />
-          </div>
-          {this.state.customer && (
+          <CoinSearch
+            options={this.state.options}
+            onChange={change => this.setState({ coin: change.value })}
+            coin={this.state.coin || ''}
+          />
+          {this.state.coin && (
             <Button
               className="Button--select"
-              onClick={() => this.setState({ customer: null })}
+              onClick={() => this.setState({ coin: null })}
               isPrimary
               text="Clear"
             />
@@ -95,10 +118,7 @@ class Home extends Component {
                 autosize={false}
                 clearable={false}
                 searchable={true}
-                options={[
-                  { label: 'Show All', value: 'all' },
-                  { label: 'Sponsored', value: 'sponsored' },
-                ]}
+                options={[{ label: 'Show All', value: 'all' }, { label: 'Main', value: 'main' }]}
                 onChange={change => this.onSelectChange('filter')(change)}
                 placeholder="Search by Customer or User"
                 value={this.state.filter}
@@ -113,13 +133,13 @@ class Home extends Component {
                 icon={
                   <SortIcon
                     className={cx('View-icon-blue', {
-                      'View-icon--active': sort !== 'updated',
+                      'View-icon--active': sort !== 'alphabetical',
                       'View-icon--flip': !this.state.isDescending,
                     })}
                   />
                 }
                 text="Sort By"
-                onClick={this.onToggleSort}
+                onClick={() => this.setState({ isDescending: !this.state.isDescending })}
                 isTransparent
               />
               <Select
@@ -131,7 +151,6 @@ class Home extends Component {
                 options={[
                   { label: 'Alphabetical', value: 'alphabetical' },
                   { label: 'Supply', value: 'supply' },
-                  { label: 'Notes Due', value: 'due' },
                 ]}
                 onChange={change => this.onSelectChange('sort')(change)}
                 placeholder="Search by Customer or User"
@@ -140,8 +159,22 @@ class Home extends Component {
             </div>
           </div>
           <div className="View-content">
-            {coins.map(coin => <CoinBlock key={coin.Id} {...coin} />)}
+            {this.coins.map(coin => (
+              <CoinBlock key={coin.Id} {...coin} prices={prices[coin.Symbol]} />
+            ))}
           </div>
+          <Pagination
+            total={
+              this.props.coins
+                .filter(this.filterByCoin.bind(this))
+                .filter(this.filterByMain.bind(this)).length
+            }
+            pageSize={100}
+            page={this.state.page}
+            type="coins"
+            onPageSizeChange={pageSize => this.setState({ pageSize })}
+            onPageChange={page => this.setState({ page })}
+          />
         </section>
       </div>
     );
@@ -151,8 +184,8 @@ class Home extends Component {
 function mapStateToProps({ coins, prices }) {
   return {
     coins: coins.result.map(id => coins.data[id]),
-    prices,
+    prices: prices.data,
   };
 }
 
-export default connect(mapStateToProps, { fetchCoins })(Home);
+export default connect(mapStateToProps, { fetchCoins, fetchPrices })(Home);
