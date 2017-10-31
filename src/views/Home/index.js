@@ -28,7 +28,7 @@ class Home extends Component {
           <h1 className="View-title">Coins</h1>
           <CoinSearch
             options={this.props.options}
-            onChange={change => this.props.updateState({ coin: change.value })}
+            onChange={change => this.props.updateState({ coin: change.value, page: 1 })}
             coin={this.props.coin || ''}
           />
           {this.props.coin && (
