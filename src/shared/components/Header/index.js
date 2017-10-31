@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { SaltLogo } from 'shared/icons';
 
 import './styles.css';
@@ -7,12 +8,11 @@ class Header extends Component {
   render() {
     return (
       <header className="Header">
-        <div className="Header-left">
+        <Link className="Header-left" to="/">
           <SaltLogo />
-        </div>
+        </Link>
 
-        <div className="Header-right">
-        </div>
+        <div className="Header-right" />
       </header>
     );
   }

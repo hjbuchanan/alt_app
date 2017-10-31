@@ -26,10 +26,19 @@
     justify-content: space-between;
   }
 
+  &-logo {
+    height: 50px;
+    margin-right: 25px;
+    object-fit: cover;
+    width: 50px;
+  }
+
   &-content {
     display: flex;
     flex-flow: row wrap;
     margin-top: 30px;
+    position: relative;
+    min-height: 400px;
   }
 
   &-select-search-wrapper {

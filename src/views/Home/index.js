@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import { fetchCoins } from 'store/coins/actions';
 import { fetchPrices } from 'store/prices/actions';
-import { FilterIcon, SortIcon } from 'shared/icons';
+import { FilterIcon, SortIcon, Loader } from 'shared/icons';
 import { Select, Button, CoinBlock, CoinSearch, Pagination } from 'shared/components';
 
 class Home extends Component {
@@ -18,14 +18,18 @@ class Home extends Component {
   };
 
   async componentWillMount() {
+    this.setState({ loading: true });
     await this.props.fetchCoins();
     await this.props.fetchPrices();
+    this.setState({ loading: false });
   }
 
-  onSelectChange(key) {
-    return ({ value }) => {
-      this.setState({ [key]: value });
-    };
+  componentDidMount() {
+    if (this.props.coins.length) {
+      this.setState({
+        options: [...this.props.coins.map(coin => ({ label: coin.Symbol, value: coin.Symbol }))],
+      });
+    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -34,6 +38,12 @@ class Home extends Component {
         options: [...nextProps.coins.map(coin => ({ label: coin.Symbol, value: coin.Symbol }))],
       });
     }
+  }
+
+  onSelectChange(key) {
+    return ({ value }) => {
+      this.setState({ [key]: value });
+    };
   }
 
   filterByCoin(coin) {
@@ -159,9 +169,13 @@ class Home extends Component {
             </div>
           </div>
           <div className="View-content">
-            {this.coins.map(coin => (
-              <CoinBlock key={coin.Id} {...coin} prices={prices[coin.Symbol]} />
-            ))}
+            {this.state.loading ? (
+              <Loader />
+            ) : (
+              this.coins.map(coin => (
+                <CoinBlock key={coin.Id} {...coin} prices={prices[coin.Symbol]} />
+              ))
+            )}
           </div>
           <Pagination
             total={

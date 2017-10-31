@@ -1,11 +1,12 @@
 import React, { PureComponent } from 'react';
+import { Link } from 'react-router-dom';
 
 import './styles.css';
 
 class CoinBlock extends PureComponent {
   render() {
     return (
-      <section className="CoinBlock">
+      <Link className="CoinBlock" to={`/coin/${this.props.Symbol}`}>
         <div className="CoinBlock-inner">
           <h3 className="CoinBlock-title">{`${this.props.CoinName} (${this.props.Symbol})`}</h3>
           <img
@@ -14,6 +15,7 @@ class CoinBlock extends PureComponent {
             alt={`${this.props.CoinName} logo`}
           />
           <div className="CoinBlock-meta">
+            <h4 className="CoinBlock-subtitle">Meta</h4>
             <div className="CoinBlock-row">
               <span className="CoinBlock-metaLabel">Sponsored:</span>
               <span className="CoinBlock-metaValue">{this.props.Sponsored ? 'Yes' : 'No'}</span>
@@ -24,6 +26,7 @@ class CoinBlock extends PureComponent {
             </div>
           </div>
           <div className="CoinBlock-pricing">
+            <h4 className="CoinBlock-subtitle">Pricing</h4>
             {Object.keys(this.props.prices || {}).map(exchange => (
               <div className="CoinBlock-row">
                 <span className="CoinBlock-metaLabel">{exchange}</span>
@@ -34,7 +37,7 @@ class CoinBlock extends PureComponent {
             ))}
           </div>
         </div>
-      </section>
+      </Link>
     );
   }
 }

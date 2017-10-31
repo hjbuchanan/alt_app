@@ -5,7 +5,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { Route, Switch } from 'react-router';
 
 import store from 'store';
-import { Home } from 'views';
+import { Home, Coin } from 'views';
 import { PrimaryLayout } from 'shared/layouts';
 
 import './App.css';
@@ -17,7 +17,8 @@ class App extends Component {
         <BrowserRouter>
           <PrimaryLayout>
             <Switch>
-              <Route exact={true} component={Home} />
+              <Route path="/" exact={true} component={Home} />
+              <Route path="/coin/:id" component={Coin} />
             </Switch>
           </PrimaryLayout>
         </BrowserRouter>

@@ -1,0 +1,116 @@
+.PriceRow {
+  background-color: #fff;
+  box-shadow: 0 4px 20px 0 rgba(71, 90, 118, 0.1);
+  border: 1px solid #ecf0f8;
+  border-radius: 5px;
+  margin-top: 20px;
+  padding: 0 45px;
+  width: 100%;
+
+  &.is-max {
+    box-shadow: 0 0 10px 1px #78c449;
+  }
+
+  &.is-min {
+    box-shadow: 0 0 10px 1px #ff8671;
+  }
+
+  &-header {
+    align-items: center;
+    display: flex;
+    height: 60px;
+    justify-content: space-between;
+  }
+
+  &-content {
+    align-items: flex-start;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+    height: 0;
+    margin-top: 0;
+    padding-top: 0;
+    transition: all 0.4s;
+    overflow: hidden;
+  }
+
+  &-content.is-open {
+    border-top: 1px solid #ecf0f8;
+    height: 160px;
+    margin-top: 12px;
+    padding-top: 12px;
+  }
+
+  &-block {
+    width: 33.3333%;
+    padding-right: 1.5rem;
+    margin-right: 1.5rem;
+  }
+
+  &:hover {
+    box-shadow: 0 0 10px 1px #ffa720;
+    cursor: pointer;
+  }
+
+  &-icon {
+    fill: #ffa720;
+    height: 18px;
+    transition: transform 0.3s;
+    transform: rotateZ(-90deg);
+    width: 18px;
+  }
+
+  &-icon.is-active {
+    transform: rotateZ(0);
+  }
+
+  &-left {
+    align-items: center;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    width: 50%;
+  }
+
+  &-name {
+    color: #3c5360;
+    flex: 1;
+    font: normal 500 14px 'Montserrat', sans-serif;
+  }
+
+  &-email {
+    color: #3c5360;
+    flex: 1;
+    font: normal normal 14px 'Open Sans';
+  }
+
+  &-meta {
+    border-bottom: 1px solid #cce5f4;
+    margin-bottom: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
+
+  &-row {
+    align-item: center;
+    display: flex;
+    margin: 0.25rem 0;
+    justify-content: space-between;
+  }
+
+  &-metaLabel {
+    color: #3c5360;
+    font: normal normal 14px 'Open Sans', sans-serif;
+    text-transform: uppercase;
+  }
+
+  &-metaValue {
+    color: #3c5360;
+    font: normal normal 14px 'Open Sans', sans-serif;
+    text-transform: uppercase;
+  }
+
+  &-subtitle {
+    font: normal 500 16px 'Montserrat', sans-serif;
+    margin: 8px 0;
+  }
+}

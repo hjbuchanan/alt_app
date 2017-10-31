@@ -1,5 +1,6 @@
 .CoinBlock {
   padding: 0.5rem;
+  text-decoration: none;
   width: 33.333333%;
 
   &-title {
@@ -11,10 +12,22 @@
     text-align: center;
   }
 
+  &-subtitle {
+    color: #3c5360;
+    font: normal bold 14px 'Montserrat', sans-serif;
+    margin: 8px 0;
+    text-align: left;
+    text-transform: uppercase;
+  }
+
   &-inner {
     border: 1px solid #ecf0f8;
-    box-shadow: 0 4px 20px 0 rgba(71, 90, 118, 0.1);
+    box-shadow: 0 10px 20px 0 rgba(71, 90, 118, 0.1);
     padding: 2rem;
+  }
+
+  &-inner:hover {
+    box-shadow: 0 0 10px 1px #ffa720;
   }
 
   &-logo {
@@ -41,11 +54,15 @@
   &-metaLabel {
     color: #3c5360;
     font: normal normal 14px 'Open Sans', sans-serif;
-    text-transform: uppercase;
+    // text-transform: uppercase;
   }
 
   &-metaValue {
     color: #3c5360;
     font: normal normal 14px 'Open', sans-serif;
+  }
+
+  &-pricing {
+    height: 75px;
   }
 }
