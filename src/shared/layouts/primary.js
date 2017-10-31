@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Header } from 'shared/components';
+import { Header, FlashMessage } from 'shared/components';
 
 class PrimaryLayout extends Component {
   render() {
@@ -7,6 +7,7 @@ class PrimaryLayout extends Component {
       <div className="App">
         <Header />
         {this.props.children}
+        <FlashMessage />
       </div>
     );
   }

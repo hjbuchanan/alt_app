@@ -1,33 +1,34 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import cx from 'classnames';
 
+import { removeFlash } from 'store/flash/actions';
 import { ErrorIcon, SuccessIcon, CloseIcon } from 'shared/icons';
 
 import './styles.css';
 
 class FlashMessage extends Component {
   render() {
-    const { data, isVisible, clear } = this.props;
+    const { visible, type, message, removeFlash } = this.props.flash;
 
     return (
       <div
         className={cx('FlashMessage', {
-          'FlashMessage--success': data.type === 'success',
-          'FlashMessage--error': data.type === 'error',
-          'is-visible': isVisible
-        })}
-      >
-        {data.type === 'error' ? (
+          'FlashMessage--success': type === 'success',
+          'FlashMessage--error': type === 'error',
+          'is-visible': visible,
+        })}>
+        {type === 'error' ? (
           <ErrorIcon className="FlashMessage-errorIcon" />
         ) : (
           <SuccessIcon className="FlashMessage-successIcon" />
         )}
-        <span className="FlashMessage-text">{data.message}</span>
+        <span className="FlashMessage-text">{message}</span>
 
-        <CloseIcon className="FlashMessage-closeIcon" onClick={clear} />
+        <CloseIcon className="FlashMessage-closeIcon" onClick={removeFlash} />
       </div>
-    )
+    );
   }
 }
 
-export default FlashMessage;
+export default connect(({ flash }) => ({ flash }), { removeFlash })(FlashMessage);

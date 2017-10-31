@@ -46,6 +46,9 @@ class Coin extends Component {
             alt={`${this.props.CoinName} logo`}
           />
           <h1 className="View-title">Coin: {coin.Symbol}</h1>
+          <span className="View-headerPrice">
+            Latest Price: {(this.props.main[0] || {}).close || 'N/A'}
+          </span>
         </section>
 
         <section className="View-body">

@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import { Link } from 'react-router-dom';
+import { Button } from 'shared/components';
 
 import './styles.css';
 
@@ -36,6 +37,15 @@ class CoinBlock extends PureComponent {
               </div>
             ))}
           </div>
+          <Button
+            isPrimary={!this.props.isFavorite}
+            isSecondary={this.props.isFavorite}
+            text={this.props.isFavorite ? 'Remove from Favorites' : 'Add to Favorites'}
+            onClick={e => {
+              e.preventDefault();
+              this.props.toggle(this.props.Symbol);
+            }}
+          />
         </div>
       </Link>
     );

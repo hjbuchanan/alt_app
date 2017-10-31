@@ -25,7 +25,7 @@ class Home extends Component {
     return (
       <div className="View">
         <section className="View-heading">
-          <h1 className="View-title">Coins</h1>
+          <h1 className="View-title">Favorite Coins</h1>
           <CoinSearch
             options={this.props.options}
             onChange={change => this.props.updateState({ coin: change.value })}
@@ -139,7 +139,7 @@ class Home extends Component {
 
 function mapStateToProps({ coins, prices, favorites }) {
   return {
-    coins: coins.result.map(id => coins.data[id]),
+    coins: coins.result.filter(id => favorites.data.includes(id)).map(id => coins.data[id]),
     prices: prices.data,
     favorites: favorites.data,
   };

@@ -42,9 +42,14 @@
   }
 
   &-block {
+    border-right: 1px solid #ecf0f8;
     width: 33.3333%;
     padding-right: 1.5rem;
     margin-right: 1.5rem;
+  }
+
+  &-block:last-child {
+    border-right: none;
   }
 
   &:hover {

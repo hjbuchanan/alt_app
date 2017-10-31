@@ -29,7 +29,7 @@ export default (state = initialState, { type, payload, error, meta }) => {
           ...state.byCoin,
           [payload.symbol]: {
             ...state.byCoin[payload.symbol],
-            [payload.exchange]: payload.data.Data,
+            [payload.exchange]: (payload.data.Data || []).reverse(),
           },
         },
       };

@@ -3,4 +3,14 @@
   display: flex;
   padding: 2rem;
   justify-content: space-between;
+
+  &-right {
+    padding-right: 4rem;
+  }
+
+  &-link {
+    color: #3c5360;
+    font: normal 800 20px 'Montserrat', sans-serif;
+    text-decoration: none;
+  }
 }

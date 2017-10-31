@@ -4,7 +4,6 @@ import { SearchIcon } from 'shared/icons';
 
 class CoinSearch extends PureComponent {
   render() {
-    console.log(this.props.options);
     return (
       <div className="View-select-search-wrapper">
         <SearchIcon className="View-select-search" />

@@ -13,7 +13,9 @@
 
   &--primary {
     background-color: #ffa720;
+    cursor: pointer;
     padding: 12px 50px;
+    width: 100%;
   }
 
   &--select {
@@ -29,8 +31,12 @@
   }
 
   &--secondary {
+    background: transparent;
     border: 1px solid #ffa720;
     color: #ffa720;
+    cursor: pointer;
+    padding: 12px 50px;
+    width: 100%;
   }
 
   &--orange {

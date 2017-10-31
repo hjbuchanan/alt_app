@@ -1,12 +1,13 @@
 import { flash } from 'store/flash/actions';
+import store from 'store';
 
 export default function gracefullHandleError(error) {
   if (error.response) {
-    flash({ message: 'Request failed. Please try again.' });
+    store.dispatch(flash({ message: 'Request failed. Please try again.', type: 'error' }));
   } else if (error.request) {
-    flash({ message: 'Request failed. Please try again.' });
+    store.dispatch(flash({ message: 'Request failed. Please try again.', type: 'error' }));
   } else {
-    flash({ message: 'Request failed. Please try again.' });
+    store.dispatch(flash({ message: 'Request failed. Please try again.', type: 'error' }));
   }
 
   return Promise.reject(error);

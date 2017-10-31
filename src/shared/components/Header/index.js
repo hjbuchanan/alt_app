@@ -12,7 +12,11 @@ class Header extends Component {
           <SaltLogo />
         </Link>
 
-        <div className="Header-right" />
+        <div className="Header-right">
+          <Link className="Header-link" to="/favorites">
+            Favorites
+          </Link>
+        </div>
       </header>
     );
   }
