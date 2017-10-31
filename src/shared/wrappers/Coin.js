@@ -59,7 +59,6 @@ function CoinWrapper(WrappedComponent) {
 
     onSelectChange(key) {
       return ({ value }) => {
-        console.log(this, key, value);
         this.setState({ [key]: value, page: 1 });
       };
     }
@@ -77,7 +76,7 @@ function CoinWrapper(WrappedComponent) {
       const { sort } = this.state;
       const { prices } = this.props;
       if (sort === 'alphabetical') {
-        return (coinA.CoinName < coinB.CoinName ? 1 : -1) * this.isDescending;
+        return (coinA.CoinName.trim() < coinB.CoinName.trim() ? 1 : -1) * this.isDescending;
       } else if (sort === 'supply') {
         return (coinA.TotalCoinSupply < coinB.TotalCoinSupply ? 1 : -1) * this.isDescending;
       } else if (sort === 'price') {
