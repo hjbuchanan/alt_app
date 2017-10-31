@@ -9,6 +9,7 @@ const fetchCoinsSuccess = createAction(CONST.FETCH_COINS_SUCCESS);
 export const fetchCoins = () => {
   return dispatch => {
     const data = window.localStorage.getItem('COIN_DATA');
+
     if (data) return Promise.resolve(dispatch(fetchCoinsSuccess(JSON.parse(data))));
 
     return axios

@@ -9,7 +9,7 @@ import './styles.css';
 
 class FlashMessage extends Component {
   render() {
-    const { visible, type, message, removeFlash } = this.props.flash;
+    const { visible, type, message } = this.props.flash;
 
     return (
       <div
@@ -25,7 +25,7 @@ class FlashMessage extends Component {
         )}
         <span className="FlashMessage-text">{message}</span>
 
-        <CloseIcon className="FlashMessage-closeIcon" onClick={removeFlash} />
+        <CloseIcon className="FlashMessage-closeIcon" onClick={this.props.removeFlash} />
       </div>
     );
   }

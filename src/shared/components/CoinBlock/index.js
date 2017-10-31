@@ -29,7 +29,7 @@ class CoinBlock extends PureComponent {
           <div className="CoinBlock-pricing">
             <h4 className="CoinBlock-subtitle">Pricing</h4>
             {Object.keys(this.props.prices || {}).map(exchange => (
-              <div className="CoinBlock-row">
+              <div key={exchange} className="CoinBlock-row">
                 <span className="CoinBlock-metaLabel">{exchange}</span>
                 <span className="CoinBlock-metaValue">
                   {this.props.prices[exchange].BTC || 'N/A'}

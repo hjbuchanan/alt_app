@@ -10,5 +10,5 @@ export default function gracefullHandleError(error) {
     store.dispatch(flash({ message: 'Request failed. Please try again.', type: 'error' }));
   }
 
-  return Promise.reject(error);
+  Promise.reject(error);
 }

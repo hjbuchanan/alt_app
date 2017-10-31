@@ -20,8 +20,7 @@ class CloseIcon extends React.PureComponent {
         width="14px"
         height="14px"
         viewBox="0 0 14 14"
-        onClick={this.onClick}
-      >
+        onClick={this.onClick}>
         <g id="Styleguide" stroke="none" strokeWidth="1" fillRule="evenodd">
           <g id="Styleguide-SafeHarbor" transform="translate(-916.000000, -1753.000000)">
             <g id="ic-close" transform="translate(911.000000, 1748.000000)">
@@ -35,7 +34,7 @@ class CloseIcon extends React.PureComponent {
           </g>
         </g>
       </svg>
-    )
+    );
   }
 }
 
