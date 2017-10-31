@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import Select from 'react-select';
-import cx from 'classnames';
 
 import { LeftIcon, RightIcon } from 'shared/icons';
 
-require('./styles.css');
+import './styles.css';
 
 class Pagination extends Component {
   onPageSizeChange({ value }) {
@@ -13,7 +12,7 @@ class Pagination extends Component {
   }
 
   onPageChange(nextPage) {
-    const { total, onPageChange } = this.props;
+    const { onPageChange } = this.props;
     if (nextPage >= 1 && nextPage <= this.totalPages) {
       onPageChange(nextPage);
       window.scrollTo(0, 0);

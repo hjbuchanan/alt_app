@@ -1,5 +1,4 @@
 import React, { PureComponent } from 'react';
-import cx from 'classnames';
 
 class FilterIcon extends PureComponent {
   constructor() {

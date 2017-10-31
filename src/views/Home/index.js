@@ -19,9 +19,13 @@ class Home extends Component {
 
   async componentWillMount() {
     this.setState({ loading: true });
+
     await this.props.fetchCoins();
     await this.props.fetchPrices();
+
     this.setState({ loading: false });
+
+    this.initPolling();
   }
 
   componentDidMount() {
@@ -40,35 +44,38 @@ class Home extends Component {
     }
   }
 
+  componentWillUnmount() {
+    clearTimeout(this.timeout);
+  }
+
+  initPolling() {
+    this.timeout = setTimeout(() => {
+      this.props.fetchPrices();
+      this.initPolling();
+    }, 30 * 1000);
+  }
+
   onSelectChange(key) {
     return ({ value }) => {
-      this.setState({ [key]: value });
+      this.setState({ [key]: value, page: 1 });
     };
   }
 
   filterByCoin(coin) {
-    if (this.state.coin) {
-      return this.state.coin === coin.Symbol;
-    } else {
-      return true;
-    }
+    return this.state.coin ? this.state.coin === coin.Symbol : true;
   }
 
   filterByMain(coin) {
     const { filter } = this.state;
-    if (filter === 'main') {
-      return ['LTC', 'DASH', 'ETH'].includes(coin.Symbol);
-    } else {
-      return true;
-    }
+    return filter === 'main' ? ['LTC', 'DASH', 'ETH'].includes(coin.Symbol) : true;
   }
 
   sort(coinA, coinB) {
     const { sort } = this.state;
     if (sort === 'alphabetical') {
-      return (coinA.CoinName < coinB.CoinName ? -1 : 1) * this.isDescending;
+      return (coinA.CoinName < coinB.CoinName ? 1 : -1) * this.isDescending;
     } else if (sort === 'supply') {
-      return (coinA.TotalCoinSupply < coinB.TotalCoinSupply ? -1 : 1) * this.isDescending;
+      return (coinA.TotalCoinSupply < coinB.TotalCoinSupply ? 1 : -1) * this.isDescending;
     }
   }
 
@@ -77,8 +84,8 @@ class Home extends Component {
     return this.props.coins
       .filter(this.filterByCoin.bind(this))
       .filter(this.filterByMain.bind(this))
-      .slice((page - 1) * pageSize, page * pageSize)
-      .sort(this.sort.bind(this));
+      .sort(this.sort.bind(this))
+      .slice((page - 1) * pageSize, page * pageSize);
   }
 
   get isDescending() {
@@ -87,7 +94,7 @@ class Home extends Component {
 
   render() {
     const { sort, filter } = this.state;
-    const { coins, prices } = this.props;
+    const { prices } = this.props;
 
     return (
       <div className="View">
@@ -183,10 +190,10 @@ class Home extends Component {
                 .filter(this.filterByCoin.bind(this))
                 .filter(this.filterByMain.bind(this)).length
             }
-            pageSize={100}
+            pageSize={this.state.pageSize}
             page={this.state.page}
             type="coins"
-            onPageSizeChange={pageSize => this.setState({ pageSize })}
+            onPageSizeChange={pageSize => this.setState({ pageSize, page: 1 })}
             onPageChange={page => this.setState({ page })}
           />
         </section>

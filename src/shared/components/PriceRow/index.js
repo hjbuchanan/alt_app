@@ -38,7 +38,7 @@ class PriceRow extends PureComponent {
             <div className="PriceRow-block">
               <h4 className="PriceRow-subtitle">CCCAGG</h4>
               {this.keys.map(key => (
-                <div className="PriceRow-row">
+                <div key={key} className="PriceRow-row">
                   <span className="PriceRow-metaLabel">{key}</span>
                   <span className="PriceRow-metaValue">{this.props.main[key] || 'N/A'}</span>
                 </div>
@@ -50,7 +50,7 @@ class PriceRow extends PureComponent {
             <div className="PriceRow-block">
               <h4 className="PriceRow-subtitle">Kraken</h4>
               {this.keys.map(key => (
-                <div className="PriceRow-row">
+                <div key={key} className="PriceRow-row">
                   <span className="PriceRow-metaLabel">{key}</span>
                   <span className="PriceRow-metaValue">{this.props.kraken[key] || 'N/A'}</span>
                 </div>
@@ -62,7 +62,7 @@ class PriceRow extends PureComponent {
             <div className="PriceRow-block">
               <h4 className="PriceRow-subtitle">Bittrex</h4>
               {this.keys.map(key => (
-                <div className="PriceRow-row">
+                <div key={key} className="PriceRow-row">
                   <span className="PriceRow-metaLabel">{key}</span>
                   <span className="PriceRow-metaValue">{this.props.bittrex[key] || 'N/A'}</span>
                 </div>

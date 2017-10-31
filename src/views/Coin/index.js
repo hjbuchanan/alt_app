@@ -1,22 +1,12 @@
 import React, { Component } from 'react';
-import cx from 'classnames';
 import { connect } from 'react-redux';
 
 import { fetchCoins } from 'store/coins/actions';
 import { fetchCoinPrice } from 'store/prices/actions';
-import { FilterIcon, SortIcon, Loader } from 'shared/icons';
-import { Select, Button, PriceRow, CoinSearch, Pagination } from 'shared/components';
+import { Loader } from 'shared/icons';
+import { PriceRow } from 'shared/components';
 
 class Coin extends Component {
-  state = {
-    coin: null,
-    filter: 'all',
-    sort: 'alphabetical',
-    isDescending: true,
-    page: 1,
-    pageSize: 100,
-  };
-
   async componentWillMount() {
     const { id } = this.props.match.params;
 
@@ -44,8 +34,8 @@ class Coin extends Component {
   }
 
   render() {
-    const { sort, filter, loading } = this.state;
-    const { coin, prices, main, kraken, bittrex } = this.props;
+    const { loading } = this.state;
+    const { coin, main, kraken, bittrex } = this.props;
 
     return (
       <div className="View">
@@ -63,8 +53,9 @@ class Coin extends Component {
             {loading ? (
               <Loader />
             ) : (
-              this.props.main.map((price, index) => (
+              main.map((price, index) => (
                 <PriceRow
+                  key={index}
                   isMax={index === this.max}
                   isMin={index === this.min}
                   main={price}

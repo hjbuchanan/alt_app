@@ -23,7 +23,7 @@ const fetchBlock = (dispatch, fsyms, exchange) => {
 export const fetchPrices = () => {
   return async (dispatch, getState) => {
     const { coins } = getState();
-    const { page, pageSize, result } = coins;
+    const { result } = coins;
     const total = Math.max(result.length / 50);
 
     await Promise.all([
