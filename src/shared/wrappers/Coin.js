@@ -10,7 +10,7 @@ function CoinWrapper(WrappedComponent) {
         coin: null,
         filter: 'all',
         sort: 'alphabetical',
-        isDescending: true,
+        isDescending: true
       };
 
       this.onSelectChange = this.onSelectChange.bind(this);
@@ -33,7 +33,12 @@ function CoinWrapper(WrappedComponent) {
     componentDidMount() {
       if (this.props.coins.length) {
         this.setState({
-          options: [...this.props.coins.map(coin => ({ label: coin.Symbol, value: coin.Symbol }))],
+          options: [
+            ...this.props.coins.map(coin => ({
+              label: coin.Symbol,
+              value: coin.Symbol
+            }))
+          ]
         });
       }
     }
@@ -41,7 +46,12 @@ function CoinWrapper(WrappedComponent) {
     componentWillReceiveProps(nextProps) {
       if (this.props.coins.length !== nextProps.coins.length) {
         this.setState({
-          options: [...nextProps.coins.map(coin => ({ label: coin.Symbol, value: coin.Symbol }))],
+          options: [
+            ...nextProps.coins.map(coin => ({
+              label: coin.Symbol,
+              value: coin.Symbol
+            }))
+          ]
         });
       }
     }
@@ -54,7 +64,7 @@ function CoinWrapper(WrappedComponent) {
       this.timeout = setTimeout(() => {
         this.props.fetchPrices();
         this.initPolling();
-      }, 30 * 1000);
+      }, 3000 * 1000);
     }
 
     onSelectChange(key) {
@@ -69,19 +79,31 @@ function CoinWrapper(WrappedComponent) {
 
     filterByMain(coin) {
       const { filter } = this.state;
-      return filter === 'main' ? ['LTC', 'DASH', 'ETH'].includes(coin.Symbol) : true;
+      return filter === 'main'
+        ? ['LTC', 'DASH', 'ETH'].includes(coin.Symbol)
+        : true;
     }
 
     sort(coinA, coinB) {
       const { sort } = this.state;
       const { prices } = this.props;
       if (sort === 'alphabetical') {
-        return (coinA.CoinName.trim() < coinB.CoinName.trim() ? 1 : -1) * this.isDescending;
+        return (
+          (coinA.CoinName.trim() < coinB.CoinName.trim() ? 1 : -1) *
+          this.isDescending
+        );
       } else if (sort === 'supply') {
-        return (coinA.TotalCoinSupply < coinB.TotalCoinSupply ? 1 : -1) * this.isDescending;
+        return (
+          (coinA.TotalCoinSupply < coinB.TotalCoinSupply ? 1 : -1) *
+          this.isDescending
+        );
       } else if (sort === 'price') {
-        const priceA = prices[coinA.Symbol] ? prices[coinA.Symbol].CCCAGG.BTC : 0;
-        const priceB = prices[coinB.Symbol] ? prices[coinB.Symbol].CCCAGG.BTC : 0;
+        const priceA = prices[coinA.Symbol]
+          ? prices[coinA.Symbol].CCCAGG.BTC
+          : 0;
+        const priceB = prices[coinB.Symbol]
+          ? prices[coinB.Symbol].CCCAGG.BTC
+          : 0;
 
         return (priceA < priceB ? 1 : -1) * this.isDescending;
       } else {
